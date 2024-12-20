@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Papa from "papaparse";
+import { useAtom } from "jotai";
+import { dataAtom, dataSourceAtom } from "../../state";
 
 export default function CSVUpload({ onParseComplete }) {
+  const [data, setData] = useAtom(dataAtom);
+  const [dataSource, setDataSource] = useState(null);
+  const fileInputRef = useRef(null);
+  const [hasFile, setHasFile] = useState(false);
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -24,16 +31,29 @@ export default function CSVUpload({ onParseComplete }) {
             }, {})
           );
 
-          onParseComplete(jsonData);
+          onParseComplete(jsonData, "CSV");
+          setHasFile(true);
         },
       });
     }
   };
 
+  const clearCSVFile = () => {
+    fileInputRef.current.value = ""; // Reset the file input
+    setData([]); // Clear the parsed data
+    setDataSource(null); // Reset the data source
+  };
+
   return (
     <div className="csv-input-container">
       <h2>Upload CSV</h2>
-      <input type="file" accept=".csv" onChange={handleFileUpload} />
+      <input
+        type="file"
+        accept=".csv"
+        onChange={handleFileUpload}
+        ref={fileInputRef}
+      />
+      {hasFile ? <button onClick={clearCSVFile}>Clear File</button> : null}
     </div>
   );
 }

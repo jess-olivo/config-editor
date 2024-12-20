@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+import { useAtom } from "jotai";
+import { dataAtom } from "../../state";
+
 import ConfirmationModal from "../confirmation-modal"; // Import the modal
 
-const RowEditor = ({ data, setData }) => {
+const RowEditor = () => {
+  const [data, setData] = useAtom(dataAtom);
   const [isModalVisible, setModalVisible] = useState(false);
   const [keyToDelete, setKeyToDelete] = useState(null);
   const [rowIndex, setRowIndex] = useState(null);

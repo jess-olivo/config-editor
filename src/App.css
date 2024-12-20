@@ -1,12 +1,22 @@
 #root {
-  max-width: 1280px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  box-sizing: border-box;
   height: 100vh;
 }
 
 .app-container {
   width: 100%;
+}
+
+.input-container {
+  display: flex;
+  border: 1px solid black;
+  justify-content: space-evenly;
+}
+
+.or {
+  align-self: center;
+  font-size: 2rem;
 }
