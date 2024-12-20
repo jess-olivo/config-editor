@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { dataAtom } from "../../state";
+import GroupBy from "../group-by";
 
 const KeyEditor = () => {
   const [data, setData] = useAtom(dataAtom);
@@ -62,6 +63,7 @@ const KeyEditor = () => {
   return (
     <div>
       <h2>Editable Keys</h2>
+      <GroupBy />
       {keys.map((key) => (
         <div key={key} style={{ marginBottom: "10px" }}>
           <input

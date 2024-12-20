@@ -1,14 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Papa from "papaparse";
 import { useAtom } from "jotai";
-import { dataAtom, dataSourceAtom } from "../../state";
+import { dataAtom, groupKeyAtom } from "../../state";
+import { useGroupedData } from "../../hooks/use-grouped-data"; // Import your grouping hook
 
-export default function CSVUpload({ onParseComplete }) {
+export default function CSVUpload() {
   const [data, setData] = useAtom(dataAtom);
   const [dataSource, setDataSource] = useState(null);
-  const [hasFile, setHasFile] = useState(false);
-  const [error, setError] = useState(null); // New state to handle errors
+  const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
+  const [headers, setHeaders] = useState([]);
+  const [groupKey, setGroupKey] = useAtom(groupKeyAtom);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -17,45 +19,54 @@ export default function CSVUpload({ onParseComplete }) {
       setError(null);
 
       Papa.parse(file, {
-        header: false, // First, treat everything as raw data
+        header: true, // Treat the first row as headers
         skipEmptyLines: true,
+        dynamicTyping: true, // Automatically convert types like dates, numbers, etc.
         complete: (results) => {
           const rows = results.data;
-          if (rows.length < 2) {
-            setError("CSV must have at least two rows (1st row + headers).");
-            return;
-          }
-          const headers = rows[1]; // The second row is the headers
-          const dataRows = rows.slice(2); // Rows after the headers
+          const headerKeys = Object.keys(rows[0] || {}); // Get headers from the first row of data
 
-          if (dataRows.length === 0) {
+          if (rows.length === 0) {
             setError("CSV must have at least one data row.");
             return;
           }
 
-          const jsonData = dataRows.map((row) =>
-            headers.reduce((acc, header, index) => {
-              acc[header] = row[index];
-              return acc;
-            }, {})
-          );
+          if (headerKeys.length === 0) {
+            setError("CSV must have at least one header.");
+            return;
+          }
 
-          onParseComplete(jsonData, "CSV");
-          setData(jsonData); // Store data in atom
-          setDataSource(file.name); // Store the file name or source
-          setHasFile(true);
+          // Set the parsed data and headers
+          setData(rows);
+          setHeaders(headerKeys); // Store header keys
+          setDataSource(file.name); // Store the file name
+
+          // Set the default group key based on the first header
+          const defaultGroupKey = headerKeys[0];
+          setGroupKey(defaultGroupKey);
+        },
+        error: (error) => {
+          setError("Error parsing CSV file.");
+          console.error("CSV Parse Error:", error);
         },
       });
     }
   };
 
   const clearCSVFile = () => {
-    fileInputRef.current.value = ""; // Reset the file input
+    fileInputRef.current.value = "";
     setData([]); // Clear the parsed data
-    setDataSource(null); // Reset the data source
-    setHasFile(false); // Reset file uploaded status
+    setHeaders([]); // Reset headers
+    setDataSource(null); // Reset data source
     setError(null); // Clear any previous error
   };
+
+  const handleGroupChange = (e) => {
+    const key = e.target.value;
+    setGroupKey(key);
+  };
+
+  const groupedData = useGroupedData(data); // Apply grouping based on the selected key
 
   return (
     <div className="csv-input-container">
@@ -66,13 +77,52 @@ export default function CSVUpload({ onParseComplete }) {
         onChange={handleFileUpload}
         ref={fileInputRef}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>} {/* Show errors */}
-      {hasFile ? (
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {dataSource && (
         <>
           <p>File Uploaded: {dataSource}</p>
           <button onClick={clearCSVFile}>Clear File</button>
         </>
-      ) : null}
+      )}
+
+      {headers.length > 0 && (
+        <div>
+          <h3>Select a Key to Group By</h3>
+          {headers.map((header) => (
+            <div key={header}>
+              <label>
+                <input
+                  type="radio"
+                  name="groupKey"
+                  value={header}
+                  checked={groupKey === header}
+                  onChange={handleGroupChange}
+                />
+                {header}
+              </label>
+            </div>
+          ))}
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="groupKey"
+                value="none"
+                checked={groupKey === "none"}
+                onChange={handleGroupChange}
+              />
+              None (Show Original Data)
+            </label>
+          </div>
+        </div>
+      )}
+
+      {groupedData && (
+        <div>
+          <h3>Grouped Data:</h3>
+          <pre>{JSON.stringify(groupedData, null, 2)}</pre>
+        </div>
+      )}
     </div>
   );
 }

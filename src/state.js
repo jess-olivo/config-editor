@@ -6,6 +6,7 @@ export const dataAtom = atom([]);
 // Atom for tracking the source type (CSV or JSON)
 export const dataSourceAtom = atom(null);
 
+export const groupKeyAtom = atom(null);
 // // Atom for holding the parsed CSV or JSON data when switching formats
 // export const pendingDataAtom = atom(null);
 

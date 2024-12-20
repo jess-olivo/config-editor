@@ -1,5 +1,4 @@
 import { useAtom } from "jotai";
-import JSONInput from "./components/json-input";
 import JSONOutput from "./components/json-output";
 import CSVUpload from "./components/csv-upload";
 import CSVPasteInput from "./components/csv-paste-input";
@@ -68,8 +67,6 @@ function App() {
 
         <h2>Paste CSV</h2>
         <CSVPasteInput onParseComplete={handleJsonParse} />
-
-        <JSONInput />
       </div>
 
       {Object.keys(data).length ? (
