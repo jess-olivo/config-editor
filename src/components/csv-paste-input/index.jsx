@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useAtom } from "jotai";
 import { dataAtom, dataSourceAtom } from "../../state";
 
-export default function CSVPasteInput({ onParseComplete }) {
+export default function CSVPasteInput() {
   const [data, setData] = useAtom(dataAtom);
   const [dataSource, setDataSource] = useAtom(dataSourceAtom);
   const [csvText, setCsvText] = useState("");
@@ -71,7 +71,6 @@ export default function CSVPasteInput({ onParseComplete }) {
       // Update state and notify the parent
       setData(parsedData);
       setDataSource("CSV_PASTE");
-      onParseComplete(parsedData);
     } catch (err) {
       setError(err.message || "Invalid CSV format. Please check your input.");
     }

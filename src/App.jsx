@@ -51,6 +51,7 @@ function App() {
       jsonSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+  console.log("Data passed to JSONOutput:", data);
 
   return (
     <div className="app-container">
@@ -68,7 +69,7 @@ function App() {
         <h2>Paste CSV</h2>
         <CSVPasteInput onParseComplete={handleJsonParse} />
 
-        <JSONInput onParseComplete={handleJsonParse} />
+        <JSONInput />
       </div>
 
       {Object.keys(data).length ? (
