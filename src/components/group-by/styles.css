@@ -16,10 +16,10 @@
   padding: 10px;
 }
 
-.groupby-item-container:not(:last-child) {
+/* .groupby-item-container:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
-
+*/
 .groupby-item-label span {
   padding-left: 10px;
 }

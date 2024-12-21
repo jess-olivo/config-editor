@@ -20,7 +20,7 @@
   padding: 0;
 }
 
-.edit-keys-edit-title {
+.section-header.edit-keys-edit-title {
   line-height: 0;
   padding: 30px;
   margin: 0;
@@ -35,6 +35,11 @@
   flex-direction: column;
 }
 
+.edit-keys-items-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .edit-keys-item-delete-btn {
   background: red;
   color: white;
@@ -42,4 +47,24 @@
 }
 
 .edit-keys-item-container {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.edit-keys-item-container:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.edit-keys-keys-input {
+  width: 80%;
+  height: 100%;/
+  /* border: none; */
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.edit-keys-item-btn {
+  width: 10%;
 }

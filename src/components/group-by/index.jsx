@@ -12,9 +12,9 @@ export default function GroupBy({ className }) {
   return (
     <div className={`${className} groupby-outer-container`}>
       {headers.length > 0 ? (
-        <div className="groupby-inner-container">
+        <div className="groupby-inner-container ">
           <h3 className="groupby-section-title">Select a Key to Group By</h3>
-          <div className="groupby-item-container">
+          <div className="groupby-item-container edit-keys-item-container">
             <label className="groupby-item-label">
               <input
                 type="radio"
@@ -28,7 +28,10 @@ export default function GroupBy({ className }) {
             </label>
           </div>
           {headers.map((header) => (
-            <div key={header} className="groupby-item-container">
+            <div
+              key={header}
+              className="groupby-item-container edit-keys-item-container"
+            >
               <label className="groupby-item-label">
                 <input
                   type="radio"
