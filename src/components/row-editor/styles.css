@@ -1,5 +1,4 @@
 .row-editor-container {
-  margin: 1rem 0.5rem 1rem 1rem;
   width: 100%;
 }
 
@@ -43,11 +42,7 @@
 
 .row-content-item-value {
   padding: 10px;
-}
-
-.row-content-item-btn {
-  padding: 10px 5px;
-  border: none;
+  overflow: hidden;
 }
 
 .row-delete-btn {

@@ -29,14 +29,12 @@ export default function JSONOutput() {
       <h2 className="section-header">Resulting JSON</h2>
 
       {isValidJson ? (
-        <div>
-          <pre className="results-json">
-            <button className="copy-btn" onClick={handleCopyToClipboard}>
-              Copy
-            </button>
-            {JSON.stringify(displayData, null, 2)}
-          </pre>
-        </div>
+        <pre className="results-json">
+          <button className="copy-btn" onClick={handleCopyToClipboard}>
+            Copy
+          </button>
+          {JSON.stringify(displayData, null, 2)}
+        </pre>
       ) : (
         <p>No valid data available to display as JSON.</p>
       )}

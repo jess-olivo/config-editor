@@ -1,0 +1,25 @@
+.groupby-inner-container {
+  text-align: left;
+}
+
+.groupby-section-title {
+  line-height: 0;
+  padding: 30px;
+  margin: 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background: #4caf50;
+  text-align: center;
+}
+
+.groupby-item-container {
+  padding: 10px;
+}
+
+.groupby-item-container:not(:last-child) {
+  border-bottom: 1px solid #ccc;
+}
+
+.groupby-item-label span {
+  padding-left: 10px;
+}

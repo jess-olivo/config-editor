@@ -30,16 +30,16 @@ function App() {
     <div className="app-container">
       <h1>Config Editor</h1>
 
-      {Object.keys(data).length ? (
-        <button className="clear-input" onClick={clear}>
-          Clear Input
-        </button>
-      ) : null}
-
       <div className="input-container">
         <CSVUpload onParseComplete={onParseComplete} />
 
         <CSVPasteInput onParseComplete={onParseComplete} />
+
+        {Object.keys(data).length ? (
+          <button className="clear-input-btn btn" onClick={clear}>
+            Clear Input
+          </button>
+        ) : null}
       </div>
 
       {data.length > 0 && (

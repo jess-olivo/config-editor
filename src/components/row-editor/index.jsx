@@ -74,7 +74,7 @@ const RowEditor = () => {
               <span className="row-content-item-value">{value}</span>
 
               <button
-                className="row-content-item-btn row-edit-btn"
+                className="row-content-item-btn row-edit-btn btn"
                 disabled
                 onClick={() => {}}
               >
@@ -82,7 +82,7 @@ const RowEditor = () => {
               </button>
 
               <button
-                className="row-content-item-btn row-delete-btn"
+                className="row-content-item-btn row-delete-btn btn"
                 onClick={() => handleDeleteKeyValue(rowIndex, key)}
               >
                 X

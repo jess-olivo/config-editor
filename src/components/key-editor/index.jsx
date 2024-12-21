@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAtom } from "jotai";
 import { dataAtom } from "../../state";
 import GroupBy from "../group-by";
+import "./styles.css";
 
 const KeyEditor = () => {
   const [data, setData] = useAtom(dataAtom);
@@ -64,29 +65,40 @@ const KeyEditor = () => {
 
   return (
     <div>
-      <h2>Editable Keys</h2>
-      <GroupBy />
-      {keys.map((key) => (
-        <div key={key} style={{ marginBottom: "10px" }}>
-          <input
-            type="text"
-            value={tempKeys[key] !== undefined ? tempKeys[key] : key}
-            onChange={(e) => handleKeyChange(key, e.target.value)}
-            style={{ marginRight: "10px" }}
-          />
-          <button
-            onClick={() => handleConfirmKeyChange(key)}
-            disabled={
-              !tempKeys[key] || // Don't allow empty strings
-              tempKeys[key] === key || // Don't allow no actual change to the key
-              keys.includes(tempKeys[key]) // Don't allow duplicate keys
-            }
-          >
-            Confirm
-          </button>
-          <button onClick={() => handleDeleteKey(key)}>Delete</button>
+      <div className="edit-keys-container">
+        <GroupBy className="edit-keys-groupby edit-keys-section" />
+        <div className="edit-keys-edit-container edit-keys-section">
+          <h2 className="edit-keys-edit-title section-header">Edit Keys</h2>
+          {keys.map((key) => (
+            <div key={key} className="edit-keys-edit-item">
+              <input
+                className="edit-keys-keys-input"
+                type="text"
+                value={tempKeys[key] !== undefined ? tempKeys[key] : key}
+                onChange={(e) => handleKeyChange(key, e.target.value)}
+                style={{ marginRight: "10px" }}
+              />
+              <button
+                className="btn edit-keys-item-confirm-btn"
+                onClick={() => handleConfirmKeyChange(key)}
+                disabled={
+                  !tempKeys[key] || // Don't allow empty strings
+                  tempKeys[key] === key || // Don't allow no actual change to the key
+                  keys.includes(tempKeys[key]) // Don't allow duplicate keys
+                }
+              >
+                Confirm
+              </button>
+              <button
+                className="btn edit-keys-item-delete-btn"
+                onClick={() => handleDeleteKey(key)}
+              >
+                X
+              </button>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
