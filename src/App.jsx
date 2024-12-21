@@ -5,7 +5,6 @@ import CSVPasteInput from "./components/csv-paste-input";
 import KeyEditor from "./components/key-editor";
 import RowEditor from "./components/row-editor";
 import BackToTop from "./components/back-to-top";
-import WarningModal from "./components/warning-modal";
 import { useSetData } from "./hooks/useSetData";
 import { dataAtom, dataSourceAtom, headerKeysAtom } from "./state";
 
@@ -32,7 +31,7 @@ function App() {
       <h1>Config Editor</h1>
 
       {Object.keys(data).length ? (
-        <button className="clear-input" onClick={() => setData({})}>
+        <button className="clear-input" onClick={clear}>
           Clear Input
         </button>
       ) : null}

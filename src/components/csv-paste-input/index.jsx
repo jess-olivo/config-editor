@@ -76,6 +76,14 @@ export default function CSVPasteInput() {
     }
   };
 
+  // Clear CSV input and reset state
+  const clearText = () => {
+    setCsvText("");
+    setError("");
+    setData([]);
+    setDataSource(null);
+  };
+
   return (
     <div>
       <h2>Paste TSV/CSV</h2>
@@ -90,6 +98,7 @@ export default function CSVPasteInput() {
         <button onClick={parseCSV} style={{ marginRight: "10px" }}>
           Parse Data
         </button>
+        <button onClick={clearText}>Clear</button>
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
