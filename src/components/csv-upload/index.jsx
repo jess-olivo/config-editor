@@ -7,7 +7,7 @@ export default function CSVUpload() {
   const setData = useSetAtom(dataAtom);
   const [dataSource, setDataSource] = useState(null);
   const [error, setError] = useState(null);
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null); // TODO clear file
   const setHeaders = useSetAtom(headerKeysAtom);
   const setGroupingKey = useSetAtom(groupingKeyAtom); // which key to group data by
 
@@ -49,13 +49,14 @@ export default function CSVUpload() {
     }
   };
 
-  const clearCSVFile = () => {
-    fileInputRef.current.value = "";
-    setData([]); // Clear the parsed data
-    setHeaders([]); // Reset headers
-    setDataSource(null); // Reset data source
-    setError(null); // Clear any previous error
-  };
+  // TODO
+  // const clearCSVFile = () => {
+  //   fileInputRef.current.value = "";
+  //   setData([]); // Clear the parsed data
+  //   setHeaders([]); // Reset headers
+  //   setDataSource(null); // Reset data source
+  //   setError(null); // Clear any previous error
+  // };
 
   const handleGroupingChange = (e) => {
     const key = e.target.value;
@@ -69,15 +70,15 @@ export default function CSVUpload() {
         type="file"
         accept=".csv"
         onChange={handleFileUpload}
-        ref={fileInputRef}
+        // ref={fileInputRef}
       />
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {dataSource && (
+      {error ? <p style={{ color: "red" }}>{error}</p> : null}
+      {/* {dataSource && (
         <>
           <p>File Uploaded: {dataSource}</p>
           <button onClick={clearCSVFile}>Clear File</button>
         </>
-      )}
+      )} */}
     </div>
   );
 }
