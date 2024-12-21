@@ -1,4 +1,4 @@
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import JSONOutput from "./components/json-output";
 import CSVUpload from "./components/csv-upload";
 import CSVPasteInput from "./components/csv-paste-input";
@@ -6,6 +6,7 @@ import KeyEditor from "./components/key-editor";
 import RowEditor from "./components/row-editor";
 import BackToTop from "./components/back-to-top";
 import WarningModal from "./components/warning-modal";
+import { useHandleJsonParse } from "./hooks/use-handle-json-parse";
 import {
   dataAtom,
   dataSourceAtom,
@@ -16,17 +17,14 @@ import {
 import "./App.css";
 
 function App() {
-  const [data, setData] = useAtom(dataAtom);
-  const [dataSource, setDataSource] = useAtom(dataSourceAtom);
+  const data = useAtomValue(dataAtom);
+
+  const handleJsonParse = useHandleJsonParse();
+  const onParseComplete = (parsedData, dataSource) => {
+    handleJsonParse(parsedData, dataSource);
+  };
   // const [pendingData, setPendingData] = useAtom(pendingDataAtom);
   // const [showModal, setShowModal] = useAtom(showModalAtom);
-  // const [data, setData] = useState({});
-  // const [dataSource, setDataSource] = useState(null); // Track the data source (CSV or JSON)
-
-  const handleJsonParse = (parsedData, dataSource) => {
-    setData(parsedData);
-    setDataSource(dataSource);
-  };
 
   // const [hasCsvData, setHasCsvData] = useState(false);
   // const [hasJsonInputData, setHasJsonInputData] = useState(false);
@@ -50,7 +48,6 @@ function App() {
       jsonSection.scrollIntoView({ behavior: "smooth" });
     }
   };
-  console.log("Data passed to JSONOutput:", data);
 
   return (
     <div className="app-container">
@@ -63,26 +60,25 @@ function App() {
       ) : null}
 
       <div className="input-container">
-        <CSVUpload onParseComplete={handleJsonParse} />
+        <CSVUpload onParseComplete={onParseComplete} />
 
         <h2>Paste CSV</h2>
-        <CSVPasteInput onParseComplete={handleJsonParse} />
+        <CSVPasteInput onParseComplete={onParseComplete} />
       </div>
-
-      {Object.keys(data).length ? (
-        <button onClick={scrollToJsonResults} style={{ marginBottom: "20px" }}>
-          Go to JSON Results
-        </button>
-      ) : null}
 
       {data.length > 0 && (
         <>
-          <div>
-            <KeyEditor />
+          {/* {Object.keys(data).length ? (
+            <button
+              onClick={scrollToJsonResults}
+              style={{ marginBottom: "20px" }}
+            >
+              Go to JSON Results
+            </button>
+          ) : null} */}
+          <KeyEditor />
+          <div className="main-container">
             <RowEditor />
-          </div>
-          <div>
-            <h2>JSON Data</h2>
             <JSONOutput data={data} />
           </div>
         </>

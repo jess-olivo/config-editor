@@ -117,12 +117,12 @@ export default function CSVUpload() {
         </div>
       )}
 
-      {groupedData && (
+      {/* {groupedData && (
         <div>
           <h3>Grouped Data:</h3>
           <pre>{JSON.stringify(groupedData, null, 2)}</pre>
         </div>
-      )}
+      )} */}
     </div>
   );
 }

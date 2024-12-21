@@ -1,17 +1,13 @@
 .json-results-container {
-  background-color: #f7f7f7;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 20px;
+  margin: 1rem;
 }
 
 .json-output-header {
   font-size: 1.5em;
-  margin-bottom: 10px;
 }
 
 .results-json {
+  position: relative;
   white-space: pre-wrap;
   word-wrap: break-word;
   font-family: monospace;
@@ -21,6 +17,8 @@
   border-radius: 5px;
   margin-bottom: 10px;
   overflow-x: auto;
+  text-align: left;
+  font-size: 1rem;
 }
 
 .copy-btn {
@@ -32,6 +30,9 @@
   cursor: pointer;
   border-radius: 5px;
   transition: background-color 0.3s ease;
+  position: absolute;
+  right: 0;
+  top: 0;
 }
 
 .copy-btn:hover {

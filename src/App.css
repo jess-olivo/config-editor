@@ -1,9 +1,9 @@
 #root {
-  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
   height: 100vh;
+  max-width: 1400px;
 }
 
 .app-container {
@@ -16,7 +16,8 @@
   justify-content: space-evenly;
 }
 
-.or {
-  align-self: center;
-  font-size: 2rem;
+.main-container {
+  border: 1px solid black;
+  margin: 1rem 0;
+  display: flex;
 }
