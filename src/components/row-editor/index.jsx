@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useAtom } from "jotai";
 import { dataAtom } from "../../state";
-
 import ConfirmationModal from "../confirmation-modal"; // Import the modal
+import "./styles.css";
 
 const RowEditor = () => {
   const [data, setData] = useAtom(dataAtom);
@@ -47,12 +47,13 @@ const RowEditor = () => {
       return row;
     });
 
-    setData(updatedData); // Update the data
-    setModalVisible(false); // Close the modal
+    setData(updatedData);
+    setModalVisible(false);
   };
 
+  // Close the modal without making changes
   const handleCancelDelete = () => {
-    setModalVisible(false); // Close the modal without making changes
+    setModalVisible(false);
   };
 
   if (data.length === 0) {
@@ -60,47 +61,45 @@ const RowEditor = () => {
   }
 
   return (
-    <div>
-      <h2>Edit Rows</h2>
+    <div className="row-editor-container">
+      <h2 className="section-header">Edit Rows</h2>
       {data.map((row, rowIndex) => (
-        <div
-          key={rowIndex}
-          style={{
-            marginBottom: "20px",
-            border: "1px solid #ccc",
-            padding: "10px",
-          }}
-        >
-          <h3>Row {rowIndex + 1}</h3>
+        <div className="row-content" key={rowIndex}>
+          <h3 className="row-content-title">Row {rowIndex + 1}</h3>
+
           {Object.entries(row).map(([key, value]) => (
-            <div
-              key={key}
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "10px",
-                marginBottom: "10px",
-              }}
-            >
-              <span>
-                <strong>{key}:</strong> {value}
-              </span>
-              <button onClick={() => handleDeleteKeyValue(rowIndex, key)}>
-                Delete
+            <div className="row-content-item" key={key}>
+              <span className="row-content-item-key">{key}</span>
+
+              <span className="row-content-item-value">{value}</span>
+
+              <button
+                className="row-content-item-btn row-edit-btn"
+                disabled
+                onClick={() => {}}
+              >
+                Edit
+              </button>
+
+              <button
+                className="row-content-item-btn row-delete-btn"
+                onClick={() => handleDeleteKeyValue(rowIndex, key)}
+              >
+                X
               </button>
             </div>
           ))}
         </div>
       ))}
 
-      {isModalVisible && (
+      {isModalVisible ? (
         <ConfirmationModal
           message={`Do you want to delete the key "${keyToDelete}"?`}
           onConfirmAll={handleConfirmDeleteForAll}
           onConfirmRow={handleConfirmDeleteForRow}
           onCancel={handleCancelDelete}
         />
-      )}
+      ) : null}
     </div>
   );
 };

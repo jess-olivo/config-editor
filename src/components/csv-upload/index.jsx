@@ -1,16 +1,15 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import Papa from "papaparse";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import { dataAtom, groupingKeyAtom, headerKeysAtom } from "../../state";
-import { useGroupedData } from "../../hooks/use-grouped-data"; // Import your grouping hook
 
 export default function CSVUpload() {
-  const [data, setData] = useAtom(dataAtom);
+  const setData = useSetAtom(dataAtom);
   const [dataSource, setDataSource] = useState(null);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
-  const [headers, setHeaders] = useAtom(headerKeysAtom);
-  const [groupingKey, setGroupingKey] = useAtom(groupingKeyAtom); // which key to group data by
+  const setHeaders = useSetAtom(headerKeysAtom);
+  const setGroupingKey = useSetAtom(groupingKeyAtom); // which key to group data by
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];

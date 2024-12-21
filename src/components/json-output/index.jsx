@@ -26,7 +26,7 @@ export default function JSONOutput() {
 
   return (
     <div className="json-results-container">
-      <h3 className="json-output-header">Resulting JSON</h3>
+      <h2 className="section-header">Resulting JSON</h2>
 
       {isValidJson ? (
         <div>

@@ -19,5 +19,12 @@
 .main-container {
   border: 1px solid black;
   margin: 1rem 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.section-header {
+  line-height: 0;
+  font-size: 2rem;
 }

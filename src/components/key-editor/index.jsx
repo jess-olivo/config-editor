@@ -10,7 +10,7 @@ const KeyEditor = () => {
 
   useEffect(() => {
     if (data.length > 0) {
-      console.log(Object.keys(data));
+      console.log(Object.keys(data)); // TODO
       setKeys(Object.keys(data[0])); // Initialize keys from data
     }
   }, [data]);
