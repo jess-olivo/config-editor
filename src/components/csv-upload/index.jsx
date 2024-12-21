@@ -38,12 +38,9 @@ export default function CSVUpload() {
 
           // Set the parsed data and headers
           setData(rows);
+
           setHeaders(headerKeys); // Store header keys
           setDataSource(file.name); // Store the file name
-
-          // // Set the default group key based on the first header
-          // const defaultGroupKey = headerKeys[0];
-          // setGroupKey(defaultGroupKey);
         },
         error: (error) => {
           setError("Error parsing CSV file.");
@@ -65,8 +62,6 @@ export default function CSVUpload() {
     const key = e.target.value;
     setGroupingKey(key);
   };
-
-  // const groupedData = useGroupedData(data); // Apply grouping based on the selected key
 
   return (
     <div className="csv-input-container">

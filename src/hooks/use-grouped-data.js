@@ -3,7 +3,7 @@ import { useAtom, useAtomValue } from "jotai";
 import { dataAtom, groupedDataAtom, groupingKeyAtom } from "../state";
 
 export function useGroupedData() {
-  const data = useAtom(dataAtom);
+  const data = useAtomValue(dataAtom);
   const [groupingKey, setGroupingKey] = useAtom(groupingKeyAtom);
   const [groupedData, setGroupedData] = useAtom(groupedDataAtom);
 
@@ -14,6 +14,7 @@ export function useGroupedData() {
         grouped[groupKey] = [];
       }
       grouped[groupKey].push(item);
+
       return grouped;
     }, {});
   };
@@ -24,15 +25,9 @@ export function useGroupedData() {
         ? groupDataByKey(data, groupingKey)
         : [];
 
-    setGroupedData([newGroupedData]);
+    setGroupedData(newGroupedData);
   }, [groupingKey]);
 
-  // useEffect(() => {
-  //   if (!Object.keys(groupedData)?.length) return;
-
-  //   setData([...groupedData]);
-  // }, [groupedData]);
-  console.log({ data, groupedData });
   const handleGroupingChange = (e) => {
     const key = e.target.value;
     setGroupingKey(key);
