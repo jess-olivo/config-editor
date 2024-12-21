@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Papa from "papaparse";
 import { useAtom } from "jotai";
-import { dataAtom, groupKeyAtom } from "../../state";
+import { dataAtom, groupingKeyAtom, headerKeysAtom } from "../../state";
 import { useGroupedData } from "../../hooks/use-grouped-data"; // Import your grouping hook
 
 export default function CSVUpload() {
@@ -9,17 +9,17 @@ export default function CSVUpload() {
   const [dataSource, setDataSource] = useState(null);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
-  const [headers, setHeaders] = useState([]);
-  const [groupKey, setGroupKey] = useAtom(groupKeyAtom);
+  const [headers, setHeaders] = useAtom(headerKeysAtom);
+  const [groupingKey, setGroupingKey] = useAtom(groupingKeyAtom); // which key to group data by
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Clear any previous errors
+      // Clear previous errors
       setError(null);
 
       Papa.parse(file, {
-        header: true, // Treat the first row as headers
+        header: true, // first row is headers
         skipEmptyLines: true,
         dynamicTyping: true, // Automatically convert types like dates, numbers, etc.
         complete: (results) => {
@@ -41,9 +41,9 @@ export default function CSVUpload() {
           setHeaders(headerKeys); // Store header keys
           setDataSource(file.name); // Store the file name
 
-          // Set the default group key based on the first header
-          const defaultGroupKey = headerKeys[0];
-          setGroupKey(defaultGroupKey);
+          // // Set the default group key based on the first header
+          // const defaultGroupKey = headerKeys[0];
+          // setGroupKey(defaultGroupKey);
         },
         error: (error) => {
           setError("Error parsing CSV file.");
@@ -61,12 +61,12 @@ export default function CSVUpload() {
     setError(null); // Clear any previous error
   };
 
-  const handleGroupChange = (e) => {
+  const handleGroupingChange = (e) => {
     const key = e.target.value;
-    setGroupKey(key);
+    setGroupingKey(key);
   };
 
-  const groupedData = useGroupedData(data); // Apply grouping based on the selected key
+  // const groupedData = useGroupedData(data); // Apply grouping based on the selected key
 
   return (
     <div className="csv-input-container">
@@ -85,7 +85,7 @@ export default function CSVUpload() {
         </>
       )}
 
-      {headers.length > 0 && (
+      {/* {headers.length > 0 && (
         <div>
           <h3>Select a Key to Group By</h3>
           {headers.map((header) => (
@@ -93,10 +93,10 @@ export default function CSVUpload() {
               <label>
                 <input
                   type="radio"
-                  name="groupKey"
+                  name="groupingKey"
                   value={header}
-                  checked={groupKey === header}
-                  onChange={handleGroupChange}
+                  checked={groupingKey === header}
+                  onChange={handleGroupingChange}
                 />
                 {header}
               </label>
@@ -108,14 +108,14 @@ export default function CSVUpload() {
                 type="radio"
                 name="groupKey"
                 value="none"
-                checked={groupKey === "none"}
-                onChange={handleGroupChange}
+                checked={groupingKey === "none"}
+                onChange={handleGroupingChange}
               />
               None (Show Original Data)
             </label>
           </div>
         </div>
-      )}
+      )} */}
 
       {/* {groupedData && (
         <div>

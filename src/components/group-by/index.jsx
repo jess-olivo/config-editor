@@ -1,22 +1,46 @@
 import React from "react";
-import { useAtom } from "jotai";
-// import { dataAtom, groupKeyAtom, dataSourceAtom } from "../../state";
+import { useAtomValue } from "jotai";
 import { useGroupedData } from "../../hooks/use-grouped-data"; // Import the new hook
-import { groupKeyAtom } from "../../state";
+import { headerKeysAtom, groupingKeyAtom } from "../../state";
 
-export default function GroupBy({ onGroupChange }) {
-  const data = useGroupedData();
-  const groupKey = useAtom(groupKeyAtom);
+export default function GroupBy() {
+  const { handleGroupingChange } = useGroupedData();
+  const groupingKey = useAtomValue(groupingKeyAtom);
+  const headers = useAtomValue(headerKeysAtom);
+
   return (
-    <div>
-      <h3>Group By:</h3>
-      <select value={groupKey} onChange={onGroupChange}>
-        {Object.keys(data[0] || {}).map((header) => (
-          <option key={header} value={header}>
-            {header}
-          </option>
-        ))}
-      </select>
-    </div>
+    <>
+      {headers.length > 0 && (
+        <div>
+          <h3>Select a Key to Group By</h3>
+          <div>
+            <label>
+              <input
+                type="radio"
+                name="groupKey"
+                value="none"
+                checked={groupingKey === "none"}
+                onChange={handleGroupingChange}
+              />
+              None (Show Original Data)
+            </label>
+          </div>
+          {headers.map((header) => (
+            <div key={header}>
+              <label>
+                <input
+                  type="radio"
+                  name="groupingKey"
+                  value={header}
+                  checked={groupingKey === header}
+                  onChange={handleGroupingChange}
+                />
+                {header}
+              </label>
+            </div>
+          ))}
+        </div>
+      )}
+    </>
   );
 }

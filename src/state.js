@@ -1,12 +1,15 @@
 import { atom } from "jotai";
 
-// Atom for storing the data (either JSON or CSV)
 export const dataAtom = atom([]);
+export const groupedDataAtom = atom([]);
 
 // Atom for tracking the source type (CSV or JSON)
 export const dataSourceAtom = atom(null);
 
-export const groupKeyAtom = atom(null);
+export const groupingKeyAtom = atom("none");
+
+export const headerKeysAtom = atom([]);
+
 // // Atom for holding the parsed CSV or JSON data when switching formats
 // export const pendingDataAtom = atom(null);
 

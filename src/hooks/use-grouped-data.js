@@ -1,14 +1,42 @@
-import { useAtom } from "jotai";
-import { dataAtom, groupKeyAtom } from "../state";
-import { groupDataByKey } from "../utils";
+import { useEffect } from "react";
+import { useAtom, useAtomValue } from "jotai";
+import { dataAtom, groupedDataAtom, groupingKeyAtom } from "../state";
 
 export function useGroupedData() {
-  const [data, setData] = useAtom(dataAtom);
-  const [groupKey] = useAtom(groupKeyAtom);
+  const data = useAtom(dataAtom);
+  const [groupingKey, setGroupingKey] = useAtom(groupingKeyAtom);
+  const [groupedData, setGroupedData] = useAtom(groupedDataAtom);
 
-  // Group data if groupKey is set, or return the original data if not
-  const groupedData =
-    groupKey && groupKey !== "none" ? groupDataByKey(data, groupKey) : data;
+  const groupDataByKey = (data, key) => {
+    return data.reduce((grouped, item) => {
+      const groupKey = item[key]; // Get the value of the selected key
+      if (!grouped[groupKey]) {
+        grouped[groupKey] = [];
+      }
+      grouped[groupKey].push(item);
+      return grouped;
+    }, {});
+  };
 
-  return groupedData;
+  useEffect(() => {
+    const newGroupedData =
+      groupingKey && groupingKey !== "none"
+        ? groupDataByKey(data, groupingKey)
+        : [];
+
+    setGroupedData([newGroupedData]);
+  }, [groupingKey]);
+
+  // useEffect(() => {
+  //   if (!Object.keys(groupedData)?.length) return;
+
+  //   setData([...groupedData]);
+  // }, [groupedData]);
+  console.log({ data, groupedData });
+  const handleGroupingChange = (e) => {
+    const key = e.target.value;
+    setGroupingKey(key);
+  };
+
+  return { groupedData, handleGroupingChange };
 }

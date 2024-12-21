@@ -1,7 +1,7 @@
 import { useSetAtom } from "jotai";
 import { dataAtom, dataSourceAtom } from "../state";
 
-export function useHandleJsonParse() {
+export function useSetData() {
   const setData = useSetAtom(dataAtom);
   const setDataSource = useSetAtom(dataSourceAtom);
 

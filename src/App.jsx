@@ -1,4 +1,4 @@
-import { useAtom, useAtomValue } from "jotai";
+import { useAtomValue } from "jotai";
 import JSONOutput from "./components/json-output";
 import CSVUpload from "./components/csv-upload";
 import CSVPasteInput from "./components/csv-paste-input";
@@ -6,7 +6,7 @@ import KeyEditor from "./components/key-editor";
 import RowEditor from "./components/row-editor";
 import BackToTop from "./components/back-to-top";
 import WarningModal from "./components/warning-modal";
-import { useHandleJsonParse } from "./hooks/use-handle-json-parse";
+import { useSetData } from "./hooks/useSetData";
 import {
   dataAtom,
   dataSourceAtom,
@@ -19,7 +19,7 @@ import "./App.css";
 function App() {
   const data = useAtomValue(dataAtom);
 
-  const handleJsonParse = useHandleJsonParse();
+  const handleJsonParse = useSetData();
   const onParseComplete = (parsedData, dataSource) => {
     handleJsonParse(parsedData, dataSource);
   };
@@ -62,7 +62,6 @@ function App() {
       <div className="input-container">
         <CSVUpload onParseComplete={onParseComplete} />
 
-        <h2>Paste CSV</h2>
         <CSVPasteInput onParseComplete={onParseComplete} />
       </div>
 
@@ -79,7 +78,7 @@ function App() {
           <KeyEditor />
           <div className="main-container">
             <RowEditor />
-            <JSONOutput data={data} />
+            <JSONOutput />
           </div>
         </>
       )}

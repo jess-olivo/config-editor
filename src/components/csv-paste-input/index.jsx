@@ -86,6 +86,7 @@ export default function CSVPasteInput() {
 
   return (
     <div>
+      <h2>Paste TSV/CSV</h2>
       <textarea
         rows={10}
         value={csvText}

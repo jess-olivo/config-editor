@@ -10,6 +10,7 @@ const KeyEditor = () => {
 
   useEffect(() => {
     if (data.length > 0) {
+      console.log(Object.keys(data));
       setKeys(Object.keys(data[0])); // Initialize keys from data
     }
   }, [data]);
@@ -36,6 +37,7 @@ const KeyEditor = () => {
           newRow[key] = row[key];
         }
       });
+
       return newRow;
     });
 

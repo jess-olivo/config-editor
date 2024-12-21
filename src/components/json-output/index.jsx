@@ -1,7 +1,13 @@
 import React from "react";
+import { useAtomValue } from "jotai";
+import { dataAtom, groupedDataAtom, groupingKeyAtom } from "../../state";
 import "./styles.css";
 
-export default function JSONOutput({ data }) {
+export default function JSONOutput() {
+  const data = useAtomValue(dataAtom);
+  const groupedData = useAtomValue(groupedDataAtom);
+  const groupingKey = useAtomValue(groupingKeyAtom);
+
   const handleCopyToClipboard = () => {
     try {
       const jsonString = JSON.stringify(data, null, 2);
@@ -16,6 +22,8 @@ export default function JSONOutput({ data }) {
 
   const isValidJson = data && (Array.isArray(data) || typeof data === "object");
 
+  const displayData = groupingKey === "none" ? data : groupedData;
+
   return (
     <div className="json-results-container">
       <h3 className="json-output-header">Resulting JSON</h3>
@@ -26,7 +34,7 @@ export default function JSONOutput({ data }) {
             <button className="copy-btn" onClick={handleCopyToClipboard}>
               Copy
             </button>
-            {JSON.stringify(data, null, 2)}
+            {JSON.stringify(displayData, null, 2)}
           </pre>
         </div>
       ) : (
