@@ -79,45 +79,6 @@ export default function CSVUpload() {
           <button onClick={clearCSVFile}>Clear File</button>
         </>
       )}
-
-      {/* {headers.length > 0 && (
-        <div>
-          <h3>Select a Key to Group By</h3>
-          {headers.map((header) => (
-            <div key={header}>
-              <label>
-                <input
-                  type="radio"
-                  name="groupingKey"
-                  value={header}
-                  checked={groupingKey === header}
-                  onChange={handleGroupingChange}
-                />
-                {header}
-              </label>
-            </div>
-          ))}
-          <div>
-            <label>
-              <input
-                type="radio"
-                name="groupKey"
-                value="none"
-                checked={groupingKey === "none"}
-                onChange={handleGroupingChange}
-              />
-              None (Show Original Data)
-            </label>
-          </div>
-        </div>
-      )} */}
-
-      {/* {groupedData && (
-        <div>
-          <h3>Grouped Data:</h3>
-          <pre>{JSON.stringify(groupedData, null, 2)}</pre>
-        </div>
-      )} */}
     </div>
   );
 }
