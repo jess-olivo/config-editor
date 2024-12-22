@@ -11,7 +11,6 @@ export default function GroupBy({ className }) {
 
   const headerKeys = useAtomValue(headerKeysAtom);
 
-  console.log("HERE", { groupingKey, headerKeys });
   return (
     <div className={`${className} groupby-outer-container`}>
       {headerKeys.length > 0 ? (

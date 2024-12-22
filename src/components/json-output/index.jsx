@@ -9,8 +9,9 @@ export default function JSONOutput() {
   const groupingKey = useAtomValue(groupingKeyAtom);
 
   const handleCopyToClipboard = () => {
+    const outputData = Object.keys(groupedData).length ? groupedData : data;
     try {
-      const jsonString = JSON.stringify(data, null, 2);
+      const jsonString = JSON.stringify(outputData, null, 2);
 
       navigator.clipboard.writeText(jsonString);
 
