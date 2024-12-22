@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
-import { dataAtom, headerKeysAtom } from "../../state";
+import {
+  dataAtom,
+  headerKeysAtom,
+  groupedDataAtom,
+  groupingKeyAtom,
+} from "../../state";
 import ConfirmationModal from "../confirmation-modal"; // Import the modal
 import "./styles.css";
 
@@ -10,6 +15,8 @@ const RowEditor = () => {
   const [keyToDelete, setKeyToDelete] = useState(null);
   const [rowIndex, setRowIndex] = useState(null);
   const setHeaderKeys = useSetAtom(headerKeysAtom);
+  const setGroupedData = useSetAtom(groupedDataAtom);
+  const setGroupingKey = useSetAtom(groupingKeyAtom);
 
   const handleDeleteKeyValue = (rowIndex, keyToDelete) => {
     setRowIndex(rowIndex);
@@ -34,9 +41,11 @@ const RowEditor = () => {
     }
     setData(updatedData);
     setHeaderKeys(Object.keys(updatedData[0]));
+    setGroupingKey("none");
     setModalVisible(false);
   };
 
+  // TODO
   // const handleConfirmDeleteForRow = () => {
   //   // Delete the key only from the specific row
   //   const updatedData = data.map((row, index) => {
