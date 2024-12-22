@@ -1,7 +1,7 @@
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import JSONOutput from "./components/json-output";
 import CSVUpload from "./components/csv-upload";
-import TSVPasteInput from "./components/tsv-paste-input";
+import PasteInput from "./components/paste-input";
 import KeyEditor from "./components/key-editor";
 import RowEditor from "./components/row-editor";
 import BackToTop from "./components/back-to-top";
@@ -31,15 +31,15 @@ function App() {
       <h1>Config Editor</h1>
 
       <div className="input-container">
-        <CSVUpload onParseComplete={onParseComplete} />
+        {/* <CSVUpload onParseComplete={onParseComplete} /> */}
 
-        <TSVPasteInput onParseComplete={onParseComplete} />
+        <PasteInput onParseComplete={onParseComplete} />
 
-        {Object.keys(data).length ? (
+        {/* {Object.keys(data).length ? (
           <button className="clear-input-btn btn" onClick={clear}>
             Clear Input
           </button>
-        ) : null}
+        ) : null} */}
       </div>
 
       {data.length > 0 && (

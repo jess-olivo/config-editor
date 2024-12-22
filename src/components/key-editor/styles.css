@@ -58,9 +58,8 @@
 
 .edit-keys-keys-input {
   width: 80%;
-  height: 100%;/
-  /* border: none; */
-  overflow: hidden;
+  height: 100%;
+  /overflow: hidden;
   padding: 10px;
   box-sizing: border-box;
 }

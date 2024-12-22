@@ -1,0 +1,52 @@
+.paste-input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.paste-input-container h2 {
+  background: #3dafff;
+  width: 100%;
+  margin: 0;
+  padding: 20px 0;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.paste-input-textarea {
+  font-size: 1.1rem;
+  width: 100%;
+}
+
+.paste-input-btns-container {
+  width: 100%;
+}
+
+.paste-input-parse-btn {
+  background: #4caf50;
+}
+
+.paste-input-clear-btn {
+  background: red;
+}
+
+.paste-input-btn {
+  color: white;
+  font-size: 1.2rem;
+  width: 50%;
+}
+
+.paste-input-file-upload-container {
+  padding: 40px 0;
+  width: 100%;
+  height: 3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paste-input-file-upload-container input {
+  /* height: 100%; */
+  font-size: 1.2rem;
+}

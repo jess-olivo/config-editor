@@ -6,12 +6,15 @@ import "./styles.css";
 
 export default function GroupBy({ className }) {
   const { handleGroupingChange } = useGroupedData();
-  const groupingKey = useAtomValue(groupingKeyAtom);
-  const headers = useAtomValue(headerKeysAtom);
 
+  const groupingKey = useAtomValue(groupingKeyAtom);
+
+  const headerKeys = useAtomValue(headerKeysAtom);
+
+  console.log("HERE", { groupingKey, headerKeys });
   return (
     <div className={`${className} groupby-outer-container`}>
-      {headers.length > 0 ? (
+      {headerKeys.length > 0 ? (
         <div className="groupby-inner-container ">
           <h3 className="groupby-section-title">Select a Key to Group By</h3>
           <div className="groupby-item-container edit-keys-item-container">
@@ -27,7 +30,7 @@ export default function GroupBy({ className }) {
               <span>None (Show Original Data)</span>
             </label>
           </div>
-          {headers.map((header) => (
+          {headerKeys.map((header) => (
             <div
               key={header}
               className="groupby-item-container edit-keys-item-container"

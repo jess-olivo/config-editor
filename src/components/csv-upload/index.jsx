@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Papa from "papaparse";
-import { useAtom, useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { dataAtom, groupingKeyAtom, headerKeysAtom } from "../../state";
 
 export default function CSVUpload() {
@@ -9,7 +9,7 @@ export default function CSVUpload() {
   const [error, setError] = useState(null);
   // const fileInputRef = useRef(null); // TODO clear file
   const setHeaders = useSetAtom(headerKeysAtom);
-  const setGroupingKey = useSetAtom(groupingKeyAtom); // which key to group data by
+  // const setGroupingKey = useSetAtom(groupingKeyAtom); // which key to group data by
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -57,11 +57,6 @@ export default function CSVUpload() {
   //   setDataSource(null); // Reset data source
   //   setError(null); // Clear any previous error
   // };
-
-  const handleGroupingChange = (e) => {
-    const key = e.target.value;
-    setGroupingKey(key);
-  };
 
   return (
     <div className="csv-input-container">

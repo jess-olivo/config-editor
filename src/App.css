@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 #root {
   margin: 0 auto;
   padding: 2rem;
@@ -14,7 +20,8 @@
 
 .input-container {
   display: flex;
-  border: 1px solid black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
   justify-content: space-evenly;
   position: relative;
 }
@@ -35,6 +42,8 @@
 .btn {
   padding: 10px 5px;
   border: none;
+
+  font-family: monospace;
 }
 
 .clear-input-btn {
