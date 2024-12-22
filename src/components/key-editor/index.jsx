@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useAtom } from "jotai";
-import { dataAtom } from "../../state";
+import { useAtom, useSetAtom } from "jotai";
+import { dataAtom, headerKeysAtom } from "../../state";
 import GroupBy from "../group-by";
 import "./styles.css";
 
@@ -8,6 +8,7 @@ const KeyEditor = () => {
   const [data, setData] = useAtom(dataAtom);
   const [keys, setKeys] = useState([]);
   const [tempKeys, setTempKeys] = useState({}); // Temporary storage for edits
+  const setHeaderKeys = useSetAtom(headerKeysAtom);
 
   useEffect(() => {
     if (data.length > 0) {
@@ -46,6 +47,7 @@ const KeyEditor = () => {
     const updatedKeys = keys.map((key) => (key === oldKey ? newKey : key));
     setKeys(updatedKeys);
     setData(updatedData);
+    setHeaderKeys(updatedKeys);
 
     // Remove the temp key after confirmation
     setTempKeys((prev) => {
@@ -57,6 +59,7 @@ const KeyEditor = () => {
   const handleDeleteKey = (keyToDelete) => {
     const updatedKeys = keys.filter((key) => key !== keyToDelete);
     setKeys(updatedKeys);
+    setHeaderKeys(updatedKeys);
 
     // Remove the key from all rows
     const updatedData = data.map(({ [keyToDelete]: _, ...rest }) => rest);
@@ -80,7 +83,6 @@ const KeyEditor = () => {
                   type="text"
                   value={tempKeys[key] !== undefined ? tempKeys[key] : key}
                   onChange={(e) => handleKeyChange(key, e.target.value)}
-                  style={{ marginRight: "10px" }}
                 />
                 <button
                   className="btn edit-keys-item-btn edit-keys-item-confirm-btn"

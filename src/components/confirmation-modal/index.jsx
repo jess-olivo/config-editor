@@ -14,9 +14,9 @@ const ConfirmationModal = ({
           <button onClick={onConfirmAll} style={modalStyles.button}>
             Delete for all rows
           </button>
-          <button onClick={onConfirmRow} style={modalStyles.button}>
+          {/* <button onClick={onConfirmRow} style={modalStyles.button}>
             Delete this row only
-          </button>
+          </button> */}
           <button onClick={onCancel} style={modalStyles.button}>
             Cancel
           </button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useAtom } from "jotai";
 import { dataAtom, dataSourceAtom, headerKeysAtom } from "../../state";
 import { parseCSVData } from "./utils";
@@ -10,6 +10,7 @@ export default function PasteInput() {
   const [headerKeys, setHeaderKeys] = useAtom(headerKeysAtom);
   const [csvText, setCsvText] = useState("");
   const [error, setError] = useState("");
+  const fileRef = useRef(null);
 
   // Handle text input change
   const handleTextChange = (e) => {
@@ -61,6 +62,7 @@ export default function PasteInput() {
     setData([]);
     setHeaderKeys([]);
     setDataSource(null);
+    fileRef.current.value = "";
   };
 
   return (
@@ -89,7 +91,12 @@ export default function PasteInput() {
       </div>
 
       <div className="paste-input-file-upload-container">
-        <input type="file" accept=".csv" onChange={handleFileUpload} />
+        <input
+          type="file"
+          accept=".csv"
+          onChange={handleFileUpload}
+          ref={fileRef}
+        />
       </div>
       {error && <p style={{ color: "red" }}>{error}</p>}
     </div>

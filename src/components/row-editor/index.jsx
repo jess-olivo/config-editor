@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useAtom } from "jotai";
-import { dataAtom } from "../../state";
+import { useAtom, useSetAtom } from "jotai";
+import { dataAtom, headerKeysAtom } from "../../state";
 import ConfirmationModal from "../confirmation-modal"; // Import the modal
 import "./styles.css";
 
@@ -9,6 +9,7 @@ const RowEditor = () => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [keyToDelete, setKeyToDelete] = useState(null);
   const [rowIndex, setRowIndex] = useState(null);
+  const setHeaderKeys = useSetAtom(headerKeysAtom);
 
   const handleDeleteKeyValue = (rowIndex, keyToDelete) => {
     setRowIndex(rowIndex);
@@ -31,25 +32,25 @@ const RowEditor = () => {
       setModalVisible(false);
       return;
     }
-
-    setData(updatedData); // Update the data
-    setModalVisible(false); // Close the modal
-  };
-
-  const handleConfirmDeleteForRow = () => {
-    // Delete the key only from the specific row
-    const updatedData = data.map((row, index) => {
-      if (index === rowIndex) {
-        const newRow = { ...row };
-        delete newRow[keyToDelete];
-        return newRow;
-      }
-      return row;
-    });
-
     setData(updatedData);
+    setHeaderKeys(Object.keys(updatedData[0]));
     setModalVisible(false);
   };
+
+  // const handleConfirmDeleteForRow = () => {
+  //   // Delete the key only from the specific row
+  //   const updatedData = data.map((row, index) => {
+  //     if (index === rowIndex) {
+  //       const newRow = { ...row };
+  //       delete newRow[keyToDelete];
+  //       return newRow;
+  //     }
+  //     return row;
+  //   });
+
+  //   setData(updatedData);
+  //   setModalVisible(false);
+  // };
 
   // Close the modal without making changes
   const handleCancelDelete = () => {
@@ -96,7 +97,7 @@ const RowEditor = () => {
         <ConfirmationModal
           message={`Do you want to delete the key "${keyToDelete}"?`}
           onConfirmAll={handleConfirmDeleteForAll}
-          onConfirmRow={handleConfirmDeleteForRow}
+          // onConfirmRow={handleConfirmDeleteForRow}
           onCancel={handleCancelDelete}
         />
       ) : null}

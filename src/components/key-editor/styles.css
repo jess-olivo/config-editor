@@ -52,6 +52,12 @@
   margin: 0;
 }
 
+.edit-keys-keys-input {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .edit-keys-item-container:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
@@ -65,5 +71,5 @@
 }
 
 .edit-keys-item-btn {
-  width: 10%;
+  width: 70px;
 }
