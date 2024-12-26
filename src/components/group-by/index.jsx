@@ -30,10 +30,7 @@ export default function GroupBy({ className }) {
             </label>
           </div>
           {headerKeys.map((header) => (
-            <div
-              key={header}
-              className="groupby-item-container edit-keys-item-container"
-            >
+            <div key={header} className="groupby-item-container">
               <label className="groupby-item-label">
                 <input
                   type="radio"
