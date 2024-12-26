@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { dataAtom, headerKeysAtom } from "../../state";
+import { useGroupedData } from "../../hooks/use-grouped-data";
 import "./styles.css";
 
 const RowEditor = () => {
@@ -10,7 +11,7 @@ const RowEditor = () => {
   const [tempValue, setTempValue] = useState(""); // Temp value for editing
   const [isDeletingKey, setIsDeletingKey] = useState(null); // Track delete state
   const setHeaderKeys = useSetAtom(headerKeysAtom);
-
+  const { groupingKey, resetToDefaultGroup } = useGroupedData();
   const handleInputChange = (value) => {
     setTempValue(value);
   };
@@ -81,6 +82,8 @@ const RowEditor = () => {
     setData(updatedData);
     setHeaderKeys(Object.keys(updatedData[0]));
     setIsDeletingKey(null);
+
+    if (groupingKey === key) resetToDefaultGroup();
   };
 
   if (data.length === 0) {
