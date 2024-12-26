@@ -6,16 +6,30 @@
 
 #root {
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
   height: 100vh;
-  max-width: 1400px;
 }
 
 .app-container {
+  max-width: 1400px;
+  margin: 0 auto;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.readme {
+  align-self: flex-end;
 }
 
 .input-container {
