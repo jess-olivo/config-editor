@@ -51,7 +51,7 @@ Select the radio input next to your desired sort option. You can leave it as "No
 You can rename your keys by typing the new name in the input box and clicking "Confirm".
 Clicking the "X" will instantly delete the key/value pair from all rows.
 
-You can add a new key to each row by entering the name and clicking "Add key". This will add the key with a value of `null` to each row.
+You can add a new key to each row by entering the name and clicking "Add key". This will add the key with a value of `null` to each row. The values can be edited in "Edit Rows".
 
 The resulting JSON will update to show the updated data
 ![form to edit keys](https://raw.githubusercontent.com/jess-olivo/config-editor/main/screenshots/edit-keys.png)
