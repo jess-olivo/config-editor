@@ -58,10 +58,6 @@ You can add a new key to each row by entering the name and clicking "Add key". T
 The resulting JSON will update to show the updated data
 ![form to edit keys](https://raw.githubusercontent.com/jess-olivo/config-editor/main/screenshots/edit-keys.png)
 
-> 🐞 Bug: There is an issue where if you change the grouping from "none" and then edit a key, the resulting JSON does not update. A workaround is to then change the grouping to any other option and it will update. You can then change the grouping back.
-
-> 🐞 Bug: If you group by a key and then delete that key it is not reverting the resulting JSON back to showing the original data without any grouping.
-
 ### Edit Rows
 
 This is all of the data. Here you can click "Edit" and change a row's value. You have the option to update the single row or all rows at once.
