@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAtom, useSetAtom } from "jotai";
 import { dataAtom, headerKeysAtom } from "../../state";
 import GroupBy from "../group-by";
+import { useGroupedData } from "../../hooks/use-grouped-data";
 import "./styles.css";
 
 const KeyEditor = () => {
@@ -10,6 +11,7 @@ const KeyEditor = () => {
   const [tempKeys, setTempKeys] = useState({}); // Temporary storage for edits
   const [newKeyName, setNewKeyName] = useState(""); // New key input field state
   const setHeaderKeys = useSetAtom(headerKeysAtom);
+  const { groupingKey, setGroupingKey, resetToDefaultGroup } = useGroupedData();
 
   useEffect(() => {
     if (data.length > 0) {
@@ -49,6 +51,11 @@ const KeyEditor = () => {
     setData(updatedData);
     setHeaderKeys(updatedKeys);
 
+    // If the key being renamed is the grouping key, update it
+    if (groupingKey === oldKey) {
+      setGroupingKey(newKey);
+    }
+
     // Remove the temp key after confirmation
     setTempKeys((prev) => {
       const { [oldKey]: _, ...rest } = prev;
@@ -57,6 +64,8 @@ const KeyEditor = () => {
   };
 
   const handleDeleteKey = (keyToDelete) => {
+    if (groupingKey === keyToDelete) resetToDefaultGroup();
+
     const updatedKeys = keys.filter((key) => key !== keyToDelete);
     setKeys(updatedKeys);
     setHeaderKeys(updatedKeys);

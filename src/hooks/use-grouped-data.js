@@ -26,12 +26,25 @@ export function useGroupedData() {
         : [];
 
     setGroupedData(newGroupedData);
-  }, [groupingKey]);
+  }, [groupingKey, data, setGroupedData]);
 
   const handleGroupingChange = (e) => {
     const key = e.target.value;
     setGroupingKey(key);
   };
 
-  return { groupedData, handleGroupingChange };
+  /**
+   * If key being deleted is the grouping key, reset to "none"
+   */
+  const resetToDefaultGroup = () => {
+    setGroupingKey("none");
+  };
+
+  return {
+    groupingKey,
+    setGroupingKey,
+    groupedData,
+    handleGroupingChange,
+    resetToDefaultGroup,
+  };
 }
