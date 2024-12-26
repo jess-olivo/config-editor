@@ -8,6 +8,7 @@ const KeyEditor = () => {
   const [data, setData] = useAtom(dataAtom);
   const [keys, setKeys] = useState([]);
   const [tempKeys, setTempKeys] = useState({}); // Temporary storage for edits
+  const [newKeyName, setNewKeyName] = useState(""); // New key input field state
   const setHeaderKeys = useSetAtom(headerKeysAtom);
 
   useEffect(() => {
@@ -65,6 +66,26 @@ const KeyEditor = () => {
     setData(updatedData);
   };
 
+  const handleAddNewKey = () => {
+    if (isInvalidKey()) return; // Block empty or duplicate keys
+
+    const updatedData = data.map((row) => ({
+      ...row,
+      [newKeyName]: null,
+    }));
+
+    setKeys([...keys, newKeyName]);
+    setData(updatedData);
+    setHeaderKeys([...keys, newKeyName]);
+
+    setNewKeyName("");
+  };
+
+  function isInvalidKey() {
+    const lowercaseKeys = keys.map((key) => key.toLowerCase());
+    return !newKeyName || lowercaseKeys.includes(newKeyName.toLowerCase());
+  }
+
   return (
     <div>
       <div className="edit-keys-container">
@@ -102,6 +123,22 @@ const KeyEditor = () => {
                 </button>
               </div>
             ))}
+            <div className="edit-keys-add-container edit-keys-item-container">
+              <input
+                className="edit-keys-add-input edit-keys-keys-input"
+                type="text"
+                placeholder="New Key Name"
+                value={newKeyName}
+                onChange={(e) => setNewKeyName(e.target.value)}
+              />
+              <button
+                className="btn edit-keys-add-btn"
+                onClick={handleAddNewKey}
+                disabled={isInvalidKey()}
+              >
+                Add Key
+              </button>
+            </div>
           </div>
         </div>
       </div>

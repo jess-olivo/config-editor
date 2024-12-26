@@ -47,8 +47,8 @@
 }
 
 .edit-keys-item-container {
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 80% 10% 10%;
   margin: 0;
 }
 
@@ -63,12 +63,20 @@
 }
 
 .edit-keys-keys-input {
-  width: 80%;
+  width: 100%;
   height: 100%;
   padding: 10px;
   box-sizing: border-box;
 }
 
 .edit-keys-item-btn {
-  width: 70px;
+  width: 100%;
+}
+
+.edit-keys-add-btn {
+  width: 100%;
+}
+
+.edit-keys-add-container {
+  grid-template-columns: 80% 20%;
 }

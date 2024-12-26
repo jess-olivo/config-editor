@@ -14,12 +14,15 @@
 
 .groupby-item-container {
   padding: 10px;
+  display: flex;
+  align-items: center;
+  margin: 0;
 }
 
-/* .groupby-item-container:not(:last-child) {
+.groupby-item-container:not(:last-child) {
   border-bottom: 1px solid #ccc;
 }
-*/
+
 .groupby-item-label span {
   padding-left: 10px;
 }
