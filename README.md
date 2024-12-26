@@ -1,5 +1,7 @@
 # Config Editor
 
+https://jess-olivo.github.io/config-editor/
+
 ## Table of Contents
 
 - [Config Editor](#config-editor)
