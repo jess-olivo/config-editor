@@ -28,29 +28,38 @@ function App() {
 
   return (
     <div className="app-container">
-      <h1>Config Editor</h1>
+      <header>
+        <h1>Config Editor</h1>
+        <a
+          className="readme"
+          href="https://github.com/jess-olivo/config-editor"
+        >
+          readme
+        </a>
+      </header>
+      <main>
+        <div className="input-container">
+          {/* <CSVUpload onParseComplete={onParseComplete} /> */}
 
-      <div className="input-container">
-        {/* <CSVUpload onParseComplete={onParseComplete} /> */}
+          <PasteInput onParseComplete={onParseComplete} />
 
-        <PasteInput onParseComplete={onParseComplete} />
-
-        {/* {Object.keys(data).length ? (
+          {/* {Object.keys(data).length ? (
           <button className="clear-input-btn btn" onClick={clear}>
             Clear Input
           </button>
         ) : null} */}
-      </div>
+        </div>
 
-      {data.length > 0 && (
-        <>
-          <KeyEditor />
-          <div className="main-container">
-            <RowEditor />
-            <JSONOutput />
-          </div>
-        </>
-      )}
+        {data.length > 0 && (
+          <>
+            <KeyEditor />
+            <div className="main-container">
+              <RowEditor />
+              <JSONOutput />
+            </div>
+          </>
+        )}
+      </main>
       <BackToTop />
     </div>
   );
