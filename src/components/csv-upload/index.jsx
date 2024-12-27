@@ -21,6 +21,7 @@ export default function CSVUpload() {
         header: true, // first row is headers
         skipEmptyLines: true,
         dynamicTyping: true, // Automatically convert types like dates, numbers, etc.
+        transform: (value) => value.replace(/\n/g, ""), // Remove \n characters
         complete: (results) => {
           const rows = results.data;
           const headerKeys = Object.keys(rows[0] || {}); // Get headers from the first row of data
